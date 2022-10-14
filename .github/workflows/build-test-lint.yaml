@@ -29,31 +29,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
           platforms: linux/amd64,linux/arm64
-          target: arce
-          build-args: |
-            SETTINGS__BULKRAX__ENABLED=true
-            EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
           cache-from: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${TAG}
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.TAG }}
-      - name: Build and push worker
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          target: arce-worker
-          build-args: |
-            SETTINGS__BULKRAX__ENABLED=true
-            EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
-          cache-from: |
-            ${{ env.REGISTRY }}/${{ github.repository }}:${TAG}
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ github.repository }}/worker:${{ env.TAG }}
+      
   lint:
     needs: build
     runs-on: ubuntu-latest
