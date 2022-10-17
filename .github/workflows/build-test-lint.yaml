@@ -102,12 +102,6 @@ jobs:
           docker-compose pull worker
       - name: Start containers
         run: docker-compose up -d web
-      - name: Setup solr
-        run: >-
-          docker-compose exec -T web bash -c
-          "solrcloud-upload-configset.sh /app/samvera/hyrax-webapp/solr/config &&
-          SOLR_COLLECTION_NAME=hydra-test solrcloud-assign-configset.sh &&
-          solrcloud-assign-configset.sh"
       - name: Setup db
         run: >-
           docker-compose exec -T web bash -c
