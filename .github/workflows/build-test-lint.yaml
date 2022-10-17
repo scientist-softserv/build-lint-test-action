@@ -159,7 +159,6 @@ jobs:
           report_paths: 'rspec*.xml'
 
   retag:
-    needs: build
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
