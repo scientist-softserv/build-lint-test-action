@@ -12,7 +12,7 @@ jobs:
         run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
       - name: Downcase repo
         run: |
-          echo "REPO_LOWER=${REPO,,}" >>${GITHUB_ENV}
+          echo "REPO_LOWER=${REPO}" >>${GITHUB_ENV}
         env:
           REPO: '${{ github.repository }}'
       - name: Checkout code
@@ -166,7 +166,7 @@ jobs:
         run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
       - name: Downcase repo
         run: |
-          echo "REPO_LOWER=${REPO,,}" >>${GITHUB_ENV}
+          echo "REPO_LOWER=${REPO}" >>${GITHUB_ENV}
         env:
           REPO: '${{ github.repository }}'
       - name: Retag web to latest
