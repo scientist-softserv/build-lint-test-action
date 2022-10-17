@@ -177,7 +177,6 @@ jobs:
           name: ${{ env.REPO_LOWER }}
           old_tag: ${{ env.TAG }}
           new_tag: latest
-          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Retag worker to latest
@@ -187,6 +186,5 @@ jobs:
           name: ${{ env.REPO_LOWER }}/worker
           old_tag: ${{ env.TAG }}
           new_tag: latest
-          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
