@@ -111,8 +111,6 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Run Specs
-        env:
-        continue-on-error: true
         run: >-
           docker-compose exec -T web bash -c
           'bundle exec rspec'
