@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
       - name: Downcase repo
         run: |
           echo "REPO_LOWER=${REPO}" >> ${GITHUB_ENV}
@@ -64,8 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
-        # run: echo "TAG=f9867d90" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
+        # run: echo "TAG=f9867d90" >> ${GITHUB_ENV}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Github Container Login
@@ -108,8 +108,8 @@ jobs:
       TB_RSPEC_OPTIONS: --format RspecJunitFormatter --out rspec.xml
     steps:
       - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
-        # run: echo "TAG=f9867d90" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
+        # run: echo "TAG=f9867d90" >> ${GITHUB_ENV}
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Github Container Login
@@ -164,7 +164,7 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
+        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
       - name: Downcase repo
         run: |
           echo "REPO_LOWER=${REPO}" >> ${GITHUB_ENV}
