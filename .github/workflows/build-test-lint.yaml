@@ -111,10 +111,17 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Run Specs
+        env:
+          # Specifies how many jobs you would like to run in parallel,
+          # used for partitioning
+          CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          # Use the index from matrix as an environment variable
+          CI_NODE_INDEX: ${{ matrix.ci_node_index }}
         continue-on-error: true
         run: >-
           docker-compose exec -T web bash -c
-          "bundle exec rspec"
+          "gem install semaphore_test_boosters &&
+          bundle exec rspec_booster --job $CI_NODE_INDEX/$CI_NODE_TOTAL"
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
         if: always() # always run even if the previous step fails
