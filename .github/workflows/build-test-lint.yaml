@@ -59,7 +59,7 @@ jobs:
         with:
           context: ${{ inputs.subdirectory || github.workspace }}
           platforms: linux/amd64,linux/arm64
-          target: ${{ inputs.target }}
+          target: ${{ inputs.target }}-worker
           build-args: |
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
