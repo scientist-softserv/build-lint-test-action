@@ -5,10 +5,12 @@ on:
       subdirectory:
         type: string
         required: false
-      target:
+      docker-target:
         type: string
         required: false
-
+      docker-context:
+        type: string
+        required: false
 env:
   REGISTRY: ghcr.io
 
@@ -43,9 +45,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ${{ inputs.subdirectory || github.workspace }}
+          context: ${{ inputs.docker-context || github.workspace }}
           platforms: linux/amd64,linux/arm64
-          target: ${{ inputs.target }}
+          target: ${{ inputs.docker-target }}
           build-args: |
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
@@ -57,9 +59,9 @@ jobs:
       - name: Build and push worker
         uses: docker/build-push-action@v3
         with:
-          context: ${{ inputs.subdirectory || github.workspace }}
+          context: ${{ inputs.docker-context || github.workspace }}
           platforms: linux/amd64,linux/arm64
-          target: ${{ inputs.target }}-worker
+          target: ${{ inputs.docker-target }}
           build-args: |
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
