@@ -5,6 +5,9 @@ on:
       subdirectory:
         type: string
         required: false
+      target:
+        type: string
+        required: false
 
 env:
   REGISTRY: ghcr.io
