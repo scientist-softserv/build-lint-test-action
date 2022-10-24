@@ -12,12 +12,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ inputs.subdirectory || github.workspace }}
     steps:
-      - name: Tmp check directory
-        run: echo ${PWD}
       - name: Set env
         run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
       - name: Downcase repo
@@ -41,10 +36,11 @@ jobs:
         run: >-
           touch .env.development;
           TAG=latest docker-compose pull web || true
+        working-directory: ${{ inputs.subdirectory || github.workspace }}
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ${{ inputs.subdirectory || github.workspace }}
           platforms: linux/amd64,linux/arm64
           target: hyku-base
           build-args: |
@@ -58,7 +54,7 @@ jobs:
       - name: Build and push worker
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ${{ inputs.subdirectory || github.workspace }}
           platforms: linux/amd64,linux/arm64
           target: hyku-worker
           build-args: |
