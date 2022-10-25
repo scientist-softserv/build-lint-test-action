@@ -60,10 +60,10 @@ jobs:
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
           cache-from: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${TAG:-latest}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${TAG:-latest}
       - name: Build and push worker
         uses: docker/build-push-action@v3
         with:
@@ -74,10 +74,10 @@ jobs:
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
           cache-from: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${TAG:-latest}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}/worker:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}/worker:${TAG:-latest}
   lint:
     needs: build
     runs-on: ubuntu-latest
