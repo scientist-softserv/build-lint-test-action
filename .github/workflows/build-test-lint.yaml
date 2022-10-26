@@ -11,6 +11,9 @@ on:
       docker-context:
         type: string
         required: false
+      registry-name:
+        type: string
+        required: false
 
 env:
   REGISTRY: ghcr.io
@@ -60,10 +63,9 @@ jobs:
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
           cache-from: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}${{ inputs.registry-name }}:latest
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:${{ env.TAG }}
+          tags: ${{ env.TAG }}
       - name: Build and push worker
         uses: docker/build-push-action@v3
         with:
@@ -74,10 +76,9 @@ jobs:
             SETTINGS__BULKRAX__ENABLED=true
             EXTRA_APK_PACKAGES=less vim bash openjdk11-jre ffmpeg rsync yarn
           cache-from: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}:latest
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}${{ inputs.registry-name }}:latest
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/${{ inputs.docker-target }}/worker:${{ env.TAG }}
+          tags: ${{ env.TAG }}
   lint:
     needs: build
     runs-on: ubuntu-latest
