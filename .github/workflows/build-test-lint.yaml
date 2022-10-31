@@ -6,7 +6,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Set env
         run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
