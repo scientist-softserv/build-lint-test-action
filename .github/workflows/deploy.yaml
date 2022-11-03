@@ -36,18 +36,9 @@ jobs:
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       SOLR_ADMIN_PASSWORD: ${{ secrets.SOLR_ADMIN_PASSWORD }}
     steps:
-      - name: Set env
-        run: >-
-          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV;
-          echo "DEPLOY_TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV;
-      # - name: Set env
-      #   run: >-
-      #     echo "TAG=b2d8d1ca" >> $GITHUB_ENV;
-      #     echo "DEPLOY_TAG=b2d8d1ca" >> $GITHUB_ENV;
-      - name: Downcase repo
-        run: echo "REPO_LOWER=`echo ${REPO} | tr '[:upper:]' '[:lower:]'`" >> $GITHUB_ENV
-        env:
-          REPO: '${{ github.repository }}'
+      - id: setup
+        name: Setup
+        uses: scientist-softserv/build-lint-test-action/setup-env@main
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Setup tmate session
