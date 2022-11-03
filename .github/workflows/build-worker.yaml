@@ -5,7 +5,7 @@ on:
       target:
         required: false
         type: string
-    workflow_call:
+  workflow_call:
     inputs:
       target:
         required: false
@@ -37,14 +37,14 @@ jobs:
         run: >-
           touch .env.development;
           TAG=latest docker-compose pull web || true
-      - name: Build and push
+      - name: Build and push worker
         uses: docker/build-push-action@v3
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          target: ${{ inputs.target }}
+          target: ${{ input.target }}
           cache-from: |
             ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:${{ env.TAG }}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.REPO_LOWER }}/worker:${{ env.TAG }}
