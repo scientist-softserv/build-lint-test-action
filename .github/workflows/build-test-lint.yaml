@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: setup
         name: Setup
-        uses: scientist-softserv/build-lint-test-action/.github/workflows/setup-env.yaml@env-test
+        uses: scientist-softserv/build-lint-test-action/setup-env.yaml@env-test
       - name: Check Setup
         run: >-
           echo ${REPO_LOWER};
