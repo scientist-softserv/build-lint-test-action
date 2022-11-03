@@ -10,8 +10,10 @@ runs:
         echo ${HEAD_TAG::8}
       env:
         HEAD_TAG: ${{ github.event.pull_request.head.sha || github.sha }}
+      shell: bash
     - name: Downcase repo
       run: |
         echo "REPO_LOWER=${REPO}" >> ${GITHUB_ENV}
       env:
         REPO: "${{ github.repository }}"
+      shell: bash
