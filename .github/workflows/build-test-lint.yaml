@@ -1,7 +1,7 @@
 name: "Ruby on Rails CI"
 on:
-  workflow_call:
   workflow_dispatch:
+  workflow_call:
 
 env:
   REGISTRY: ghcr.io
@@ -10,13 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
-      - name: Downcase repo
-        run: |
-          echo "REPO_LOWER=${REPO}" >> ${GITHUB_ENV}
-        env:
-          REPO: "${{ github.repository }}"
+      - id: setup
+        name: Setup
+        uses: scientist-softserv/build-lint-test-action/setup-env@env-test
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Set up QEMU
@@ -65,9 +61,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
-        # run: echo "TAG=f9867d90" >> ${GITHUB_ENV}
+      - id: setup
+        name: Setup
+        uses: scientist-softserv/build-lint-test-action/setup-env@env-test
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Github Container Login
@@ -109,9 +105,9 @@ jobs:
       TB_RSPEC_FORMATTER: progress
       TB_RSPEC_OPTIONS: --format RspecJunitFormatter --out rspec.xml
     steps:
-      - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
-        # run: echo "TAG=f9867d90" >> ${GITHUB_ENV}
+      - id: setup
+        name: Setup
+        uses: scientist-softserv/build-lint-test-action/setup-env@env-test
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Github Container Login
@@ -165,13 +161,9 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
-      - name: Set env
-        run: echo "TAG=${GITHUB_SHA::8}" >> ${GITHUB_ENV}
-      - name: Downcase repo
-        run: |
-          echo "REPO_LOWER=${REPO}" >> ${GITHUB_ENV}
-        env:
-          REPO: "${{ github.repository }}"
+      - id: setup
+        name: Setup
+        uses: scientist-softserv/build-lint-test-action/setup-env@env-test
       - name: Retag web to latest
         uses: koraykoska/retag-docker-image@0.2.4
         with:
